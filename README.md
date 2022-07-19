@@ -1,10 +1,21 @@
-# Getting Started with Create React App
+# Importante
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Necesitará leer las siguientes tres secciones de este documento para poder visualizar correctamente el proyecto; instalar dependencias y ejecutar el servidor.
+# Dependencias a instalar
 
-## Available Scripts
+Para ejecutar el proyecto correctamente necesitarás instalar las siguientes dependencias, estas se instalan desde una consola y ubicado en el directorio donde esté alojado el proyecto:
 
-In the project directory, you can run:
+### npm install react 
+
+# Para comenzar
+
+Para poder visualizar este proyecto deberás entrar a una consola y ubicarte en el directorio donde haya descargado el proyecto:
+
+### `npm start`
+
+# Introducción a Create React App
+
+Este proyecto se inició con [Create React App](https://github.com/facebook/create-react-app).
 
 ### `npm start`
 
