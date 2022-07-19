@@ -1,0 +1,288 @@
+.contenedor-principal {
+  color: white;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* display: none; */
+}
+
+.contenedor-modal {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  min-height: 100px;
+  background: #c2c2c2;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+}
+
+.encabezado-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #424242;
+}
+
+.input-name {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 10px;
+}
+
+.boton-modal {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  height: 35px;
+  width: 100px;
+  padding: 10px 18px;
+  border-radius: 15px;
+  color: #fff;
+  border: none;
+  background: #14848c;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: .3s ease all;
+}
+
+.boton-modal:hover {
+  background: black;
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+
+/* Fuera del modal */
+.encabezado {
+  display: flex;
+  justify-content: center;
+}
+
+.contenedor {
+  background-color: #7c8484;
+  margin: auto;
+  display: flex;
+  width: 480px;
+  min-height: 50px;
+  text-align: center;
+  border-radius: 5px;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tarjeta-principal {
+  padding: 1.5em;
+  justify-content: center;
+  align-items: center;
+}
+
+.detalles {
+  padding: 1.5em;
+}
+
+.contenedor-boton {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  background: #7c8484;
+}
+
+.boton {
+  display: block;
+  padding: 10px 18px;
+  border-radius: 15px;
+  color: #fff;
+  border: none;
+  background: #14848c;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: .3s ease all;
+}
+
+.boton:hover {
+  background: black;
+}
+
+/*Alimentos*/
+
+.contenedor-tarjetas {
+  display: flex;
+}
+
+.contenedor-de-tarjeta-alimentos {
+  background-color: #14848c;
+  margin: 20px;
+  display: flex;
+  width: 50%;
+  min-height: 200px;
+  text-align: center;
+  border-radius: 5px;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tarjeta-alimentos {
+  display: flex;
+  flex-direction: column;
+  padding: 0.7em;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagen {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 30px;
+}
+
+.detalles-alimentos {
+  padding: 0 0.5em;
+}
+
+.nombre-de-alimento {
+  display: block;
+  font-size: 1em;
+  margin: auto;
+  font-weight: bold;
+}
+
+.contenedor-boton-alimentos {
+  display: inline;
+  justify-content: center;
+  gap: 20px;
+  background: #14848c;
+}
+
+.boton-alimentos {
+  margin: 10px 0 0 0;
+  display: block;
+  padding: 6px 12px;
+  border-radius: 15px;
+  color: #fff;
+  border: none;
+  background: #424242;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: .3s ease all;
+}
+
+.boton-alimentos:hover {
+  background: black;
+}
+
+.contenedor-monedas {
+  display: flex;
+
+}
+
+.boton-modal-monedas {
+  margin: auto;
+  height: 60px;
+  width: 60px;
+  padding: 5px 5px;
+  border-radius: 30px;
+  color: #fff;
+  border: none;
+  background: #14848c;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  transition: .3s ease all;
+}
+
+.boton-modal-monedas:hover {
+  background: black;
+}
+
+.detalles-pagar {
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  color: #424242;
+  width: 60%;
+  font-weight: bold;
+}
+
+
+
+.ajustar-precio-pagar {
+  margin-left: 50px;
+}
+
+.ajustar-precio-ingresado {
+  margin-left: 34px;
+}
+
+.boton-continuar-monedas {
+  margin: auto;
+  display: block;
+  padding: 10px 18px;
+  border-radius: 15px;
+  color: #fff;
+  border: none;
+  background: #14848c;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: .3s ease all;
+}
+
+.boton-continuar-monedas:hover {
+  background: black;
+}
+
+.boton-modal-finalizar-compra {
+  margin: auto;
+  display: block;
+  padding: 10px 18px;
+  border-radius: 15px;
+  color: #fff;
+  border: none;
+  background: #14848c;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: .3s ease all;
+}
+
+.boton-modal-finalizar-compra:hover {
+  background: black;
+}
+
+.ajustar-precio-total-final {
+  margin-left: 142px;
+}
+
+.ajustar-valor-ingresado-final {
+  margin-left: 34px;
+}
+
+.ajustar-cambio {
+  margin-left: 122px;
+}
