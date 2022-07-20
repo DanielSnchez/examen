@@ -374,7 +374,6 @@ function App() {
                           return (
                             <div className='detalles-pagar' key={index}>
                               <div><span> $ {value}</span></div>
-                              {/* <div><span className='ajustar-precio-ingresado'>$ {value} </span></div> */}
                             </div>
                           )
                         })}
