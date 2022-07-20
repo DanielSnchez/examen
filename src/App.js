@@ -1,28 +1,20 @@
 import React, { useState } from 'react'
-import './App.css'
+import { AjustarPrecioIngresado, AjustarPrecioPagar, Boton, BotonAlimento, BotonContinuarMonedas, BotonModal, BotonModalFinalizarCompra, BotonModalMonedas, Contenedor, ContenedorBoton, ContenedorBotonAlimento, ContenedorModal, ContenedorMonedas, ContenedorPrincipal, ContenedorTarjetas, ContenedorTarjetasAlimentos, Contenido, Detalles, DetallesAlimentos, DetallesPagar, EncabezadoModal, EncabezadoPagina, H1, H2, H3, H4, Imagen, InputName, ListaContenedora, ListaItems, NombreAlimento, Overlay, TarjetaAlimento, TarjetaPrincipal } from './AppStyles'
 
-
+// Es importante que le menciona que para el análisis de este código se ordenó todo de manera secuencial,
+// desde los estados con el hook useState, variables, objetos y funciones, hasta el contenido que retorna
+// esta función principal
 
 function App() {
 
   //Estados con hook useState
   const [mostrarModal, setMostrarModal] = useState(true)
 
-  const [cambioVistaModal, setCambioVistaModal] = useState(false)
-
-  const [mostrarModalPagar, setMostrarModalPagar] = useState(false)
-
-  const [cambioVistaModalPagar, setCambioVistaModalPagar] = useState(false)
-
-  const [mostrarBotonContinuarMonedas, setMostrarBotonContinuarMonedas] = useState(true)
-
-  const [mostrarBotonRecibirCambio, setMostrarBotonRecibirCambio] = useState(true)
-
-  const [vistaRecibirPago, setVistaRecibirPago] = useState(false)
-
-  const [vistaFinalizarCompra, setVistaFinalizarCompra] = useState(false)
-
   const [nombre, setNombre] = useState()
+
+  const [mostrarFormulario, setMostrarFormulario] = useState(true)
+
+  const [cambioVistaModal, setCambioVistaModal] = useState(false)
 
   const [cantidadCarne] = useState([])
 
@@ -30,11 +22,23 @@ function App() {
 
   const [cantidadSushi] = useState([])
 
+  const [mostrarModalPagar, setMostrarModalPagar] = useState(false)
+
+  const [mostrarBotonContinuarMonedas, setMostrarBotonContinuarMonedas] = useState(true)
+
   const [totalPagar, setTotalPagar] = useState()
 
+  const [cambioVistaModalPagar, setCambioVistaModalPagar] = useState(false)
+
   const [cantidadIngresada, setCantidadIngresada] = useState()
+  
+  const [vistaFinalizarCompra, setVistaFinalizarCompra] = useState(false)
 
   const [cambio, setCambio] = useState()
+
+  const [mostrarBotonRecibirCambio, setMostrarBotonRecibirCambio] = useState(true)
+
+  const [vistaRecibirCambio, setVistaRecibirCambio] = useState(false)
 
   const [imprimirCambio] = useState([])
 
@@ -56,20 +60,15 @@ function App() {
 
 
   // Funciones
-  const ocultarModal = () => {
-    setMostrarModal(!mostrarModal)
-  }
-
-  const ocultarModalPagar = () => {
-    document.getElementById("vista-pagar").style.display = "none"
-    setVistaFinalizarCompra(true)
-  }
-
   function recibirNombre(e) {
     setNombre(document.getElementById("nombre-usuario").value)
     e.preventDefault()
+    setMostrarFormulario(false)
     setCambioVistaModal(true)
-    document.getElementById("form").style.display = "none"
+  }
+
+  const ocultarModal = () => {
+    setMostrarModal(!mostrarModal)
   }
 
   const sumarCompras = (precioSumar) => {
@@ -96,6 +95,10 @@ function App() {
     setTotalPagar(total.valor)
   }
 
+  const modalPagar = () => {
+    setMostrarModalPagar(true)
+  }
+
   const sumarMonedas = (valorMonedas) => {
     total.valorMonedas += valorMonedas
     document.getElementById("valor-monedas").innerHTML = "  $ " + total.valorMonedas
@@ -119,6 +122,11 @@ function App() {
 
   const guardarCantidadIngresada = () => {
     setCantidadIngresada(total.valorMonedas)
+  }
+
+  const ocultarModalPagar = () => {
+    document.getElementById("vista-pagar").style.display = "none"
+    setVistaFinalizarCompra(true)
   }
 
   const generarCambio = () => {
@@ -171,226 +179,237 @@ function App() {
 
   return (
     // Contenedor principal
-    <div className="contenedor-principal">
+    <ContenedorPrincipal>
+
+
       {/* Modal ingresar nombre */}
       <>
         {mostrarModal &&
-          <div className="overlay">
-            <div className="contenedor-modal" >
-              <form id="form" onSubmit={recibirNombre}>
-                <div className="encabezado-modal">
-                  <h3>Introduzca su nombre</h3>
-                </div>
-                <div >
-                  <div className="input-name">
-                    <input id="nombre-usuario" type="text" placeholder="nombre*" required minLength="4"></input>
+          <Overlay>
+            <ContenedorModal>
+              {mostrarFormulario &&
+                <form id="form" onSubmit={recibirNombre}>
+                  <EncabezadoModal>
+                    <H3>Introduzca su nombre</H3>
+                  </EncabezadoModal>
+                  <div>
+                    <InputName>
+                      <input id="nombre-usuario" type="text" placeholder="nombre*" required minLength="4"></input>
+                    </InputName>
+                    <BotonModal type="submit" >Ingresar</BotonModal>
                   </div>
-                  <button className="boton-modal" type="submit" >Ingresar</button>
-                </div>
-              </form>
+                </form>
+              }
               {cambioVistaModal &&
                 <>
-                  <div className='contenido'>
-                    <div className="encabezado-modal">
-                      <h4>¡Ahora puede comenzar su compra!</h4>
-                    </div>
-                    <button className="boton-modal" onClick={ocultarModal} >Continuar</button>
-                  </div>
+                  <Contenido>
+                    <EncabezadoModal>
+                      <H4>¡Ahora puede comenzar su compra!</H4>
+                    </EncabezadoModal>
+                    <BotonModal onClick={ocultarModal} >Continuar</BotonModal>
+                  </Contenido>
                 </>
               }
-            </div>
-          </div>
+            </ContenedorModal>
+          </Overlay>
         }
       </>
       {/* Modal ingresar nombre */}
 
+
       {/* Carta máquina de alimentos */}
-      <h1 className="encabezado">Maquina de Alimentos</h1>
-      <div className="contenedor">
-        <div className="tarjeta-principal">
-          <div className="contenedor-tarjetas">
+      <H1><EncabezadoPagina>Maquina de Alimentos</EncabezadoPagina></H1>
+      <Contenedor>
+        <TarjetaPrincipal>
+          <ContenedorTarjetas>
 
             {/* ALIMENTO 1 */}
-            <div className="contenedor-de-tarjeta-alimentos">
-              <div className="tarjeta-alimentos">
-                <img className="imagen" src="https://www.cardamomo.news/__export/1631918457213/sites/debate/img/2021/09/17/carne_seca_crop1631918438277.jpeg_1187729725.jpeg" />
+            <ContenedorTarjetasAlimentos>
+              <TarjetaAlimento>
+                <Imagen src="https://www.cardamomo.news/__export/1631918457213/sites/debate/img/2021/09/17/carne_seca_crop1631918438277.jpeg_1187729725.jpeg" />
                 <br />
-                <div className="detalles-alimentos">
-                  <span className="nombre-de-alimento">Carne</span>
-                  <div className="nombre-de-alimento">${precioCarne}</div>
-                </div>
-                <div className="contenedor-boton-alimentos">
-                  <button className="boton-alimentos" onClick={() => { sumarCompras(precioCarne) }} >Comprar</button>
-                </div>
-              </div>
-            </div>
+                <DetallesAlimentos>
+                  <NombreAlimento>Carne</NombreAlimento>
+                  <NombreAlimento>${precioCarne}</NombreAlimento>
+                </DetallesAlimentos>
+                <ContenedorBotonAlimento>
+                  <BotonAlimento onClick={() => { sumarCompras(precioCarne) }} >Comprar</BotonAlimento>
+                </ContenedorBotonAlimento>
+              </TarjetaAlimento>
+            </ContenedorTarjetasAlimentos>
 
             {/* ALIMENTO 2 */}
-            <div className="contenedor-de-tarjeta-alimentos">
-              <div className="tarjeta-alimentos">
-                <img className="imagen" src="https://elperiodicodemexico.com/galeria2011/519104.jpg" />
+            <ContenedorTarjetasAlimentos>
+              <TarjetaAlimento>
+                <Imagen src="https://elperiodicodemexico.com/galeria2011/519104.jpg" />
                 <br />
-                <div className="detalles-alimentos">
-                  <span className="nombre-de-alimento">Ensalada</span>
-                  <div className="nombre-de-alimento">${precioEnsalada}</div>
-                </div>
-                <div className="contenedor-boton-alimentos">
-                  <button className="boton-alimentos" onClick={() => sumarCompras(precioEnsalada)}>Comprar</button>
-                </div>
-              </div>
-            </div>
+                <DetallesAlimentos>
+                  <NombreAlimento>Ensalada</NombreAlimento>
+                  <NombreAlimento>${precioEnsalada}</NombreAlimento>
+                </DetallesAlimentos>
+                <ContenedorBotonAlimento>
+                  <BotonAlimento onClick={() => sumarCompras(precioEnsalada)}>Comprar</BotonAlimento>
+                </ContenedorBotonAlimento>
+              </TarjetaAlimento>
+            </ContenedorTarjetasAlimentos>
 
             {/* ALIMENTO 3 */}
-            <div className="contenedor-de-tarjeta-alimentos">
-              <div className="tarjeta-alimentos">
-                <img className="imagen" src="https://http2.mlstatic.com/D_NQ_NP_913595-MLM31770619182_082019-O.jpg" />
+            <ContenedorTarjetasAlimentos>
+              <TarjetaAlimento>
+                <Imagen src="https://http2.mlstatic.com/D_NQ_NP_913595-MLM31770619182_082019-O.jpg" />
                 <br />
-                <div className="detalles-alimentos">
-                  <span className="nombre-de-alimento">Sushi</span>
-                  <div className="nombre-de-alimento">${precioSushi}</div>
-                </div>
-                <div className="contenedor-boton-alimentos">
-                  <button className="boton-alimentos" onClick={() => sumarCompras(precioSushi)}>Comprar</button>
-                </div>
-              </div>
-            </div>
-          </div>
+                <DetallesAlimentos>
+                  <NombreAlimento>Sushi</NombreAlimento>
+                  <NombreAlimento>${precioSushi}</NombreAlimento>
+                </DetallesAlimentos>
+                <ContenedorBotonAlimento>
+                  <BotonAlimento onClick={() => sumarCompras(precioSushi)}>Comprar</BotonAlimento>
+                </ContenedorBotonAlimento>
+              </TarjetaAlimento>
+            </ContenedorTarjetasAlimentos>
+
+          </ContenedorTarjetas>
 
           {/* Visualizar total y botones para pagar y reiniciar pedido */}
-          <div className="detalles">
-            <h2>Total: <span id="total">  </span></h2>
-          </div>
-          <div className="contenedor-boton">
-            <button className="boton" onClick={() => { setMostrarModalPagar(true); guardarTotal() }}>Pagar</button>
-            <button className="boton" onClick={() => sumarCompras(0)}>Reiniciar pedido</button>
-          </div>
-        </div>
-      </div>
+          <Detalles>
+            <H2>Total: <span id="total">  </span></H2>
+          </Detalles>
+          <ContenedorBoton>
+            <Boton onClick={() => { modalPagar(); guardarTotal() }}>Pagar</Boton>
+            <Boton onClick={() => sumarCompras(0)}>Reiniciar pedido</Boton>
+          </ContenedorBoton>
+        </TarjetaPrincipal>
+      </Contenedor>
       {/* Carta máquina de alimentos */}
+
 
       {/* Modal pagar */}
       <>
         {mostrarModalPagar &&
-          <div className="overlay">
-            <div className="contenedor-modal" >
+          <Overlay>
+            <ContenedorModal>
               <div id="vista-pagar">
                 {mostrarBotonContinuarMonedas &&
                   <>
-                    <div className="encabezado-modal">
-                      <h2>Ingresar monedas</h2>
-                    </div>
-                    <div className='contenedor-monedas'>
-                      <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaDiez)}>$ {monedaDiez}</button>
-                      <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaCincuenta)}>$ {monedaCincuenta}</button>
-                      <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaCien)}>$ {monedaCien}</button>
-                    </div>
+                    <EncabezadoModal>
+                      <H2>Ingresar monedas</H2>
+                    </EncabezadoModal>
+                    <ContenedorMonedas>
+                      <BotonModalMonedas onClick={() => sumarMonedas(monedaDiez)}>$ {monedaDiez}</BotonModalMonedas>
+                      <BotonModalMonedas onClick={() => sumarMonedas(monedaCincuenta)}>$ {monedaCincuenta}</BotonModalMonedas>
+                      <BotonModalMonedas onClick={() => sumarMonedas(monedaCien)}>$ {monedaCien}</BotonModalMonedas>
+                    </ContenedorMonedas>
                     <br />
-                    <div className='detalles-pagar'>
-                      <div>Cantidad a pagar: <span className='ajustar-precio-pagar'> $ {totalPagar}</span></div>
-                      <div>Cantidad ingresada: <span className='ajustar-precio-ingresado' id="valor-monedas"> </span></div>
+                    <DetallesPagar>
+                      <div>Cantidad a pagar: <AjustarPrecioPagar> $ {totalPagar}</AjustarPrecioPagar></div>
+                      <div>Cantidad ingresada: <AjustarPrecioIngresado id="valor-monedas"> </AjustarPrecioIngresado></div>
                       <br />
-                      <button className="boton-continuar-monedas" onClick={() => { verificarMonedas() }}>Continuar</button>
-                    </div>
+                      <BotonContinuarMonedas onClick={() => { verificarMonedas() }}>Continuar</BotonContinuarMonedas>
+                    </DetallesPagar>
                   </>
                 }
                 {cambioVistaModalPagar &&
                   <>
-                    <div className='contenido'>
-                      <div className="encabezado-modal">
-                        <h3>Ahora de clic en recibir producto para visualizar información de pago y recibir su producto.</h3>
-                      </div>
-                      <button className="boton-modal-finalizar-compra" onClick={() => { ocultarModalPagar(); generarCambio() }} >Recibir producto</button>
-                    </div>
+                    <Contenido>
+                      <EncabezadoModal>
+                        <H3>Ahora de clic en recibir producto para visualizar información de pago y recibir su producto.</H3>
+                      </EncabezadoModal>
+                      <BotonModalFinalizarCompra onClick={() => { ocultarModalPagar(); generarCambio() }} >Recibir producto</BotonModalFinalizarCompra>
+                    </Contenido>
                   </>
                 }
               </div>
+
               {vistaFinalizarCompra &&
                 <>
-                  <div className='contenido'>
-                    <div className="encabezado-modal">
-                      <h3>¡Hola {nombre}! </h3>
-                    </div>
-                    <div className='detalles-pagar'>
+                  <Contenido>
+                    <EncabezadoModal>
+                      <H3>¡Hola {nombre}! </H3>
+                    </EncabezadoModal>
+                    <DetallesPagar>
                       <div>Resumen de Compra</div>
-                      <ul className='lista-contenedora'>
+                      <ListaContenedora>
                         <li>
-                          <div className='lista-items'>
+                          <ListaItems>
                             <div>Descripción</div>
                             <div>Precio</div>
-                          </div>
+                          </ListaItems>
                         </li>
                         <li>
-                          <div className='lista-items'>
+                          <ListaItems>
                             <div>x{cantidadCarne.length} Carne</div>
                             <div>$ {cantidadCarne.length * precioCarne}</div>
-                          </div>
+                          </ListaItems>
                         </li>
                         <li>
-                          <div className='lista-items'>
+                          <ListaItems>
                             <div>x{cantidadEnsalada.length} Ensalada</div>
                             <div>$ {cantidadEnsalada.length * precioEnsalada}</div>
-                          </div>
+                          </ListaItems>
                         </li>
                         <li>
-                          <div className='lista-items'>
+                          <ListaItems>
                             <div>x{cantidadSushi.length} Sushi</div>
                             <div>$ {cantidadSushi.length * precioSushi}</div>
-                          </div>
+                          </ListaItems>
                         </li>
                         <br />
                         <li>
-                          <div className='lista-items'>
+                          <ListaItems>
                             <div>Total</div>
                             <div>$ {totalPagar}</div>
-                          </div>
+                          </ListaItems>
                         </li>
                         <li>
-                          <div className='lista-items'>
+                          <ListaItems>
                             <div>Cantidad ingresada</div>
                             <div>$ {cantidadIngresada}</div>
-                          </div>
+                          </ListaItems>
                         </li>
                         <li>
-                          <div className='lista-items'>
+                          <ListaItems>
                             <div>Cambio</div>
                             <div>$ {cambio}</div>
-                          </div>
+                          </ListaItems>
                         </li>
-                      </ul>
+                      </ListaContenedora>
                       <br />
+
                       {mostrarBotonRecibirCambio &&
                         <>
                           <br />
-                          <button className="boton-modal-finalizar-compra" onClick={() => { setMostrarBotonRecibirCambio(false); setVistaRecibirPago(true); darCambio() }} >Recibir cambio</button>
+                          <BotonModalFinalizarCompra onClick={() => { setMostrarBotonRecibirCambio(false); setVistaRecibirCambio(true); darCambio() }} >Recibir cambio</BotonModalFinalizarCompra>
                         </>
                       }
-                    </div>
-                    {vistaRecibirPago &&
+
+                    </DetallesPagar>
+
+                    {vistaRecibirCambio &&
                       <div>
-                        <div className='detalles-pagar'>
+                        <DetallesPagar>
                           Por favor reciba su cambio:
-                        </div>
+                        </DetallesPagar>
                         {imprimirCambio.map((value, index) => {
                           return (
-                            <div className='detalles-pagar' key={index}>
+                            <DetallesPagar key={index}>
                               <div><span> $ {value}</span></div>
-                            </div>
+                            </DetallesPagar>
                           )
                         })}
                         <br />
-                        <button className="boton-modal-finalizar-compra" onClick={() => window.location.reload()}>Finalizar Compra</button>
+                        <BotonModalFinalizarCompra onClick={() => window.location.reload()}>Finalizar Compra</BotonModalFinalizarCompra>
                       </div>
                     }
 
-                  </div>
+                  </Contenido>
                 </>
               }
-            </div>
-          </div>
+            </ContenedorModal>
+          </Overlay>
         }
       </>
       {/* Modal pagar */}
-    </div>
+    </ContenedorPrincipal>
     // Contenedor principal
   )
 }
