@@ -1,5 +1,22 @@
 .contenedor-principal {
-  color: white;
+  color: black;
+}
+
+h1 {
+  color: black;
+  font-size: xxx-large;
+}
+
+h2 {
+  font-size: revert;
+}
+
+h3 {
+  font-size: x-large;
+  margin: auto;
+}
+h4 {
+  font-size: larger;
 }
 
 .overlay {
@@ -22,7 +39,9 @@
   flex-direction: column;
   width: 400px;
   min-height: 100px;
-  background: #c2c2c2;
+  max-height: 459px;
+  overflow-y: auto;
+  background: #212121;
   position: relative;
   border-radius: 5px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -33,7 +52,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #424242;
+  color: #696868;
 }
 
 .input-name {
@@ -60,7 +79,8 @@
 }
 
 .boton-modal:hover {
-  background: black;
+  background: #14848c;
+  opacity: 0.9;
 }
 
 .contenido {
@@ -74,12 +94,18 @@
 
 /* Fuera del modal */
 .encabezado {
+  margin: 30px auto;
   display: flex;
   justify-content: center;
+  align-content: center;
+  width: 64%;
+  opacity: 0.9;
+  background: goldenrod;
+  border-radius: 22px;
 }
 
 .contenedor {
-  background-color: #7c8484;
+  background-color: goldenrod;
   margin: auto;
   display: flex;
   width: 480px;
@@ -105,7 +131,6 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  background: #7c8484;
 }
 
 .boton {
@@ -205,9 +230,9 @@
   width: 60px;
   padding: 5px 5px;
   border-radius: 30px;
-  color: #fff;
+  color: black;
   border: none;
-  background: #14848c;
+  background-image: url("https://img.freepik.com/fotos-premium/fondo-dorado-brillante-diferentes-tonalidades_1258-88926.jpg?w=2000");
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
@@ -215,16 +240,16 @@
 }
 
 .boton-modal-monedas:hover {
-  background: black;
+  background: goldenrod;
+  opacity: 0.9;
 }
 
 .detalles-pagar {
   margin: auto;
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
-  color: #424242;
+  color: #b3b3b3;
   width: 60%;
   font-weight: bold;
 }
@@ -285,4 +310,15 @@
 
 .ajustar-cambio {
   margin-left: 122px;
+}
+
+.lista-contenedora {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.lista-items {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
 }

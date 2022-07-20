@@ -24,11 +24,11 @@ function App() {
 
   const [nombre, setNombre] = useState()
 
-  const [cantidadCarne, setCantidadCarne] = useState(0)
+  const [cantidadCarne] = useState([])
 
-  const [cantidadEnsalada, setCantidadEnsalada] = useState(0)
+  const [cantidadEnsalada] = useState([])
 
-  const [cantidadSushi, setCantidadSushi] = useState(0)
+  const [cantidadSushi] = useState([])
 
   const [totalPagar, setTotalPagar] = useState()
 
@@ -36,11 +36,7 @@ function App() {
 
   const [cambio, setCambio] = useState()
 
-  const [contadorCientos, setContadorCientos] = useState(0)
-
-  const [contadorCincuenta, setContadorCincuenta] = useState(0)
-
-  const [contadorDiez, setContadorDiez] = useState(0)
+  const [imprimirCambio] = useState([])
 
 
   //Variables
@@ -85,6 +81,15 @@ function App() {
       total.valor += precioSumar
       document.getElementById("total").innerHTML = "  $ " + total.valor
     }
+    if (precioSumar === precioCarne) {
+      cantidadCarne.push(1)
+    }
+    if (precioSumar === precioEnsalada) {
+      cantidadEnsalada.push(1)
+    }
+    if (precioSumar === precioSushi) {
+      cantidadSushi.push(1)
+    }
   }
 
   const guardarTotal = () => {
@@ -122,10 +127,37 @@ function App() {
 
   const darCambio = () => {
     let cambioModificar = cambio
-    let contarCientos = 0
-    while (cambioModificar > 100) {
+    let contarCentenas = 0
+    let contarCincuenta = 0
+    let contarDecenas = 0
+    //Sustraer las centenas
+    while (cambioModificar >= 100) {
       cambioModificar = cambioModificar - 100
-      ++contarCientos
+      ++contarCentenas
+    }
+    //Imprime lo que sobra después de filtrar los cientos
+    for (let i = 0; i < contarCentenas; i++) {
+      imprimirCambio.push(100)
+    }
+
+    //Sustraer monedas de cincuenta
+    while (cambioModificar >= 50) {
+      cambioModificar = cambioModificar - 50
+      ++contarCincuenta
+    }
+    //Imprime lo que sobra después de filtrar las monedas de cincuenta
+    for (let i = 0; i < contarCincuenta; i++) {
+      imprimirCambio.push(50)
+    }
+
+    //Sustraer decenas
+    while (cambioModificar >= 10) {
+      cambioModificar = cambioModificar - 10
+      ++contarDecenas
+    }
+    //Imprime lo que sobra después de filtrar las decenas
+    for (let i = 0; i < contarDecenas; i++) {
+      imprimirCambio.push(10)
     }
   }
 
@@ -160,7 +192,7 @@ function App() {
                 <>
                   <div className='contenido'>
                     <div className="encabezado-modal">
-                      <h3>¡Ahora puede comenzar su compra!</h3>
+                      <h4>¡Ahora puede comenzar su compra!</h4>
                     </div>
                     <button className="boton-modal" onClick={ocultarModal} >Continuar</button>
                   </div>
@@ -242,28 +274,30 @@ function App() {
           <div className="overlay">
             <div className="contenedor-modal" >
               <div id="vista-pagar">
-                <div className="encabezado-modal">
-                  <h3>Ingresar monedas</h3>
-                </div>
-                <div className='contenedor-monedas'>
-                  <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaDiez)}>$ {monedaDiez}</button>
-                  <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaCincuenta)}>$ {monedaCincuenta}</button>
-                  <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaCien)}>$ {monedaCien}</button>
-                </div>
-                <br />
-                <div className='detalles-pagar'>
-                  <div>Cantidad a pagar: <span className='ajustar-precio-pagar'> $ {totalPagar}</span></div>
-                  <div>Cantidad ingresada: <span className='ajustar-precio-ingresado' id="valor-monedas"> </span></div>
-                  <br />
-                </div>
                 {mostrarBotonContinuarMonedas &&
-                  <button className="boton-continuar-monedas" onClick={() => { verificarMonedas() }}>Continuar</button>
+                  <>
+                    <div className="encabezado-modal">
+                      <h2>Ingresar monedas</h2>
+                    </div>
+                    <div className='contenedor-monedas'>
+                      <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaDiez)}>$ {monedaDiez}</button>
+                      <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaCincuenta)}>$ {monedaCincuenta}</button>
+                      <button className="boton-modal-monedas" onClick={() => sumarMonedas(monedaCien)}>$ {monedaCien}</button>
+                    </div>
+                    <br />
+                    <div className='detalles-pagar'>
+                      <div>Cantidad a pagar: <span className='ajustar-precio-pagar'> $ {totalPagar}</span></div>
+                      <div>Cantidad ingresada: <span className='ajustar-precio-ingresado' id="valor-monedas"> </span></div>
+                      <br />
+                      <button className="boton-continuar-monedas" onClick={() => { verificarMonedas() }}>Continuar</button>
+                    </div>
+                  </>
                 }
                 {cambioVistaModalPagar &&
                   <>
                     <div className='contenido'>
                       <div className="encabezado-modal">
-                        <h3>Ahora haga clic en recibir producto para visualizar información de pago y recibir su producto.</h3>
+                        <h3>Ahora de clic en recibir producto para visualizar información de pago y recibir su producto.</h3>
                       </div>
                       <button className="boton-modal-finalizar-compra" onClick={() => { ocultarModalPagar(); generarCambio() }} >Recibir producto</button>
                     </div>
@@ -278,19 +312,73 @@ function App() {
                     </div>
                     <div className='detalles-pagar'>
                       <div>Resumen de Compra</div>
-                      <br />
-                      <div>Total <span className='ajustar-precio-total-final'> $ {totalPagar}</span></div>
-                      <div>Cantidad ingresada <span className='ajustar-valor-ingresado-final' id="valor-monedas"> $ {cantidadIngresada} </span></div>
-                      <div>Cambio <span className='ajustar-cambio' id="valor-monedas"> $ {cambio} </span></div>
+                      <ul className='lista-contenedora'>
+                        <li>
+                          <div className='lista-items'>
+                            <div>Descripción</div>
+                            <div>Precio</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div className='lista-items'>
+                            <div>x{cantidadCarne.length} Carne</div>
+                            <div>$ {cantidadCarne.length * precioCarne}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div className='lista-items'>
+                            <div>x{cantidadEnsalada.length} Ensalada</div>
+                            <div>$ {cantidadEnsalada.length * precioEnsalada}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div className='lista-items'>
+                            <div>x{cantidadSushi.length} Sushi</div>
+                            <div>$ {cantidadSushi.length * precioSushi}</div>
+                          </div>
+                        </li>
+                        <br />
+                        <li>
+                          <div className='lista-items'>
+                            <div>Total</div>
+                            <div>$ {totalPagar}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div className='lista-items'>
+                            <div>Cantidad ingresada</div>
+                            <div>$ {cantidadIngresada}</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div className='lista-items'>
+                            <div>Cambio</div>
+                            <div>$ {cambio}</div>
+                          </div>
+                        </li>
+                      </ul>
                       <br />
                       {mostrarBotonRecibirCambio &&
-                        <button className="boton-modal-finalizar-compra" onClick={() => { setMostrarBotonRecibirCambio(false); setVistaRecibirPago(true); darCambio() }} >Recibir cambio</button>
+                        <>
+                          <br />
+                          <button className="boton-modal-finalizar-compra" onClick={() => { setMostrarBotonRecibirCambio(false); setVistaRecibirPago(true); darCambio() }} >Recibir cambio</button>
+                        </>
                       }
-                      <br />
                     </div>
                     {vistaRecibirPago &&
                       <div>
-
+                        <div className='detalles-pagar'>
+                          Por favor reciba su cambio:
+                        </div>
+                        {imprimirCambio.map((value, index) => {
+                          return (
+                            <div className='detalles-pagar' key={index}>
+                              <div><span> $ {value}</span></div>
+                              {/* <div><span className='ajustar-precio-ingresado'>$ {value} </span></div> */}
+                            </div>
+                          )
+                        })}
+                        <br />
                         <button className="boton-modal-finalizar-compra" onClick={() => window.location.reload()}>Finalizar Compra</button>
                       </div>
                     }
