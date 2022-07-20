@@ -72,14 +72,8 @@ function App() {
   }
 
   const sumarCompras = (precioSumar) => {
-    if (precioSumar === 0) {
-      total.valor = 0
-      document.getElementById("total").innerHTML = "  $ " + total.valor
-    }
-    else {
-      total.valor += precioSumar
-      document.getElementById("total").innerHTML = "  $ " + total.valor
-    }
+    total.valor += precioSumar
+    document.getElementById("total").innerHTML = "  $ " + total.valor
     if (precioSumar === precioCarne) {
       cantidadCarne.push(1)
     }
@@ -276,7 +270,6 @@ function App() {
           </Detalles>
           <ContenedorBoton>
             <Boton onClick={() => { modalPagar(); guardarTotal() }}>Pagar</Boton>
-            <Boton onClick={() => sumarCompras(0)}>Reiniciar pedido</Boton>
           </ContenedorBoton>
         </TarjetaPrincipal>
       </Contenedor>
